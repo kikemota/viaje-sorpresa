@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="La guía del viaje sorpresa de Ana y Alberto.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Viaje sorpresa">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Viaje sorpresa</title>
+</head>
+<body>
+  <!-- Pantalla de revelación del destino -->
+  <section id="reveal" class="reveal" hidden>
+    <div class="reveal-inner">
+      <p class="reveal-kicker">Ana y Alberto presentan</p>
+      <h1 class="reveal-title">El viaje sorpresa</h1>
+      <p class="reveal-sub">Habéis confiado en ellos. Valiente decisión.<br>Toca el sobre para descubrir adónde os llevan.</p>
+      <button id="envelope" class="envelope" aria-label="Abrir el sobre">
+        <span class="env-emoji">✉️</span>
+        <span class="env-hint">Toca para abrir</span>
+      </button>
+      <div id="reveal-result" class="reveal-result" hidden>
+        <div class="flag" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h2>¡LUXEMBURGO!</h2>
+        <p>Un país donde el transporte es gratis, hay castillos de cuento y nadie sabe pronunciar «Gromperekichelcher». Ana y Alberto no se hacen responsables.</p>
+        <button id="reveal-go" class="btn btn-big">Ver el plan</button>
+      </div>
+    </div>
+    <div id="confetti" class="confetti" aria-hidden="true"></div>
+  </section>
+
+  <header class="topbar">
+    <div>
+      <p id="kicker" class="kicker">Escapada a Luxemburgo</p>
+      <h1 id="title">Plan</h1>
+    </div>
+    <span id="net" class="net" hidden>Sin conexión</span>
+  </header>
+
+  <main id="view" class="view"></main>
+
+  <div id="install" class="install" hidden>
+    <img src="icons/icon-192.png" alt="" width="40" height="40">
+    <div class="install-text">
+      <strong>Instala la guía</strong>
+      <span id="install-hint">Funciona sin cobertura. Ana y Alberto, no siempre.</span>
+    </div>
+    <button id="install-btn" class="btn">Instalar</button>
+    <button id="install-close" class="icon-btn" aria-label="Cerrar">✕</button>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <nav class="tabbar" aria-label="Navegación principal">
+    <a href="#/plan" data-tab="plan"><svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2zm-2 8h14v10H5zm2 2v2h4v-2zm0 4v2h7v-2z"/></svg><span>Plan</span></a>
+    <a href="#/excursiones" data-tab="excursiones"><svg viewBox="0 0 24 24"><path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2L7 10l-6 8h22z"/></svg><span>Excursiones</span></a>
+    <a href="#/descubre" data-tab="descubre"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm4.2 5.8l-2.6 5.8-5.8 2.6 2.6-5.8z"/></svg><span>Descubre</span></a>
+    <a href="#/info" data-tab="info"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-1 5h2v2h-2zm0 4h2v6h-2z"/></svg><span>Info</span></a>
+  </nav>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
