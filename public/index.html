@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#1c322b">
   <meta name="description" content="La guía del viaje sorpresa de Ana y Alberto.">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
@@ -12,6 +12,8 @@
   <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="icons/icon-192.png">
   <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preload" href="fuentes/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fuentes/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <title>Viaje sorpresa</title>
 </head>
@@ -21,7 +23,7 @@
     <div class="reveal-inner">
       <p class="reveal-kicker">Ana y Alberto presentan</p>
       <h1 class="reveal-title">El viaje sorpresa</h1>
-      <p class="reveal-sub">Ana ha revisado cada peligro. Alberto ya tiene la charla preparada.<br>Toca el sobre para descubrir adónde os llevan.</p>
+      <p class="reveal-sub">Ana lo ha organizado todo con mimo. Alberto ya tiene la charla preparada.<br>Toca el sobre para descubrir adónde os llevan.</p>
       <button id="envelope" class="envelope" aria-label="Abrir el sobre">
         <span class="env-emoji">✉️</span>
         <span class="env-hint">Toca para abrir</span>
@@ -29,7 +31,7 @@
       <div id="reveal-result" class="reveal-result" hidden>
         <div class="flag" aria-hidden="true"><i></i><i></i><i></i></div>
         <h2>¡LUXEMBURGO!</h2>
-        <p>Transporte gratis, castillos de cuento y nadie sabe pronunciar «Gromperekichelcher» (Alberto lo intentará igual). Ana ya ha comprobado que es uno de los países más seguros del mundo. Aun así, lleva silbato.</p>
+        <p>Transporte gratis, castillos de cuento y nadie sabe pronunciar «Gromperekichelcher» (Alberto lo intentará igual, con mímica). Ana ha comprobado que es uno de los países más seguros del mundo y os ha metido tiritas en la maleta.</p>
         <button id="reveal-go" class="btn btn-big">Ver el plan</button>
       </div>
     </div>

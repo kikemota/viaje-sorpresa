@@ -30,7 +30,7 @@ function pantalla(volver, error) {
 <html lang="es"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f172a">
+<meta name="theme-color" content="#1c322b">
 <meta name="robots" content="noindex">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
@@ -39,18 +39,18 @@ function pantalla(volver, error) {
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; }
   body { font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: #fff;
-    background: radial-gradient(circle at 50% 30%, #1e3a5f, #0f172a 70%);
+    background: radial-gradient(circle at 50% 30%, #2b463d, #14211d 70%);
     display: grid; place-items: center; padding: 24px; text-align: center; }
   main { width: 100%; max-width: 380px; }
   .candado { font-size: 72px; }
-  .kicker { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #7dd3fc; margin: 12px 0 0; }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #fbbf24; margin: 12px 0 0; }
   h1 { font-size: 30px; margin: 6px 0 8px; font-weight: 900; }
-  p { color: #cbd5e1; margin: 0 0 20px; }
-  input { width: 100%; font: inherit; font-size: 18px; padding: 14px 16px; border-radius: 14px; border: 2px solid #334155;
-    background: #0b1220; color: #fff; text-align: center; letter-spacing: .05em; }
-  input:focus { outline: none; border-color: #38bdf8; }
+  p { color: #e7e5e4; margin: 0 0 20px; }
+  input { width: 100%; font: inherit; font-size: 18px; padding: 14px 16px; border-radius: 14px; border: 2px solid #2b463d;
+    background: #0e1815; color: #fff; text-align: center; letter-spacing: .05em; }
+  input:focus { outline: none; border-color: #fbbf24; }
   button { width: 100%; margin-top: 12px; font: inherit; font-size: 17px; font-weight: 700; padding: 14px; border: 0;
-    border-radius: 14px; background: #0284c7; color: #fff; cursor: pointer; }
+    border-radius: 14px; background: #fbbf24; color: #14211d; cursor: pointer; }
   .error { color: #fda4af; font-weight: 600; margin: 12px 0 0; }
 </style>
 </head><body><main>
@@ -62,7 +62,7 @@ function pantalla(volver, error) {
     <input type="hidden" name="volver" value="${escapar(volver)}">
     <input name="clave" type="password" autocomplete="current-password" placeholder="Clave secreta" required autofocus>
     <button type="submit">Entrar</button>
-    ${error ? '<p class="error">Clave incorrecta. Ana se ha asustado. 😱</p>' : ''}
+    ${error ? '<p class="error">Clave incorrecta. Ana te da otra oportunidad, con cariño. 💛</p>' : ''}
   </form>
 </main></body></html>`;
   return new Response(html, {

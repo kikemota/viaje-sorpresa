@@ -9,7 +9,7 @@ const store = {
 };
 
 const allStops = T.days.flatMap((d) => d.stops.map((s) => ({ ...s, dayId: d.id })));
-const countable = allStops.filter((s) => s.id !== 'fin');
+const countable = allStops.filter((s) => s.id !== 'vuelta');
 let done = new Set(store.get('done', []));
 let selectedDay = null;
 let excuseLast = null;
@@ -52,14 +52,14 @@ function itemsHtml(items, numbered) {
 function quipsHtml(s) {
   if (!s.ana && !s.alberto) return '';
   return `<div class="quips">
-    ${s.ana ? `<div class="quip quip-ana"><span class="quip-who">😱 Ana</span>${esc(s.ana)}</div>` : ''}
-    ${s.alberto ? `<div class="quip quip-alberto"><span class="quip-who">🗣️ Alberto</span>${esc(s.alberto)}</div>` : ''}
+    ${s.ana ? `<div class="quip quip-ana"><span class="quip-who">💛 Ana</span>${esc(s.ana)}</div>` : ''}
+    ${s.alberto ? `<div class="quip quip-alberto"><span class="quip-who">🎙️ Alberto</span>${esc(s.alberto)}</div>` : ''}
   </div>`;
 }
 
 function stopHtml(s) {
   const isDone = done.has(s.id);
-  const time = s.start === s.end ? s.start : `${s.start} – ${s.end}`;
+  const time = s.label || (s.start === s.end ? s.start : `${s.start} – ${s.end}`);
   return `
   <article class="stop${isDone ? ' is-done' : ''}" id="stop-${s.id}">
     <div class="stop-time"><span>${time}${s.approx ? ' aprox.' : ''}</span></div>
@@ -72,7 +72,7 @@ function stopHtml(s) {
         ${quipsHtml(s)}
         <div class="actions">
           ${s.map ? `<a class="btn btn-ghost" href="${mapsUrl(s.map)}" target="_blank" rel="noopener">📍 Cómo llegar</a>` : ''}
-          ${s.id !== 'fin' ? `<button class="btn ${isDone ? 'btn-done' : ''}" data-done="${s.id}">${isDone ? '✓ Hecho' : 'Marcar como hecho'}</button>` : ''}
+          ${s.id !== 'vuelta' ? `<button class="btn ${isDone ? 'btn-done' : ''}" data-done="${s.id}">${isDone ? '✓ Hecho' : 'Marcar como hecho'}</button>` : ''}
         </div>
       </div>
     </div>
@@ -97,8 +97,9 @@ const views = {
       }
       return `
         <div class="hero">
-          <p class="hero-kicker">Un viaje de Ana y Alberto</p>
+          <p class="hero-kicker">Un viaje de Ana y Alberto · ${esc(T.dates)}</p>
           <h2>${esc(T.title)}</h2>
+          <p class="hero-tag">${esc(T.tagline)}</p>
           <p>${esc(T.subtitle)}</p>
           <div class="chips"><span>🏨 ${esc(T.hotel)}</span><span>🚌 ${esc(T.badge)}</span></div>
         </div>
@@ -106,7 +107,7 @@ const views = {
         <div class="card progress">
           <div class="progress-top"><strong>${esc(r.name)}</strong><span>${r.n}/${r.total}</span></div>
           <div class="bar"><i style="width:${(r.n / r.total) * 100}%"></i></div>
-          <p>Marca las paradas que vayáis completando. Alberto lo comentará todo; Ana solo quiere que volváis enteros.</p>
+          <p>Marca las paradas que vayáis completando. Ana se asegura de que nadie se quede atrás; Alberto, de que nadie se quede sin anécdota.</p>
         </div>
         <div class="segmented" role="tablist">
           ${T.days.map((d) => `<button role="tab" aria-selected="${d.id === selectedDay}" data-day-tab="${d.id}">${d.label}</button>`).join('')}
@@ -117,7 +118,7 @@ const views = {
   excursiones: {
     title: 'Excursiones',
     html() {
-      return `<p class="lead">Para el domingo. A Ana las tres le dan miedo. Alberto tiene una charla preparada para cada una.</p>` +
+      return `<p class="lead">Para el sábado por la tarde (15:30 – 19:30). Ana ya ha mirado los horarios de vuelta. Alberto tiene un chiste preparado para cada una.</p>` +
         T.excursions.map((e) => `
         <div class="card stop-card">
           <img class="stop-img" src="${e.img}" alt="" loading="lazy">
@@ -164,17 +165,17 @@ const views = {
         <div class="card excuse">
           <span class="pill">Generador oficial</span>
           <h2>Excusas de Ana y Alberto</h2>
-          <p id="excuse-text" class="excuse-text">Por si algo sale mal. Ana está segura de que saldrá mal. Alberto te lo explicará igualmente.</p>
+          <p id="excuse-text" class="excuse-text">Por si algo sale mal. Ana tiene un plan B. Alberto, una explicación de veinte minutos.</p>
           <button id="excuse-btn" class="btn">Dame una excusa</button>
         </div>
         <div class="card" id="install-card">
           <span class="pill">Instalar</span>
           <h2>Llévala en el móvil</h2>
-          <p class="muted">Funciona sin cobertura. Ana lo agradece: quedarse sin ella le da pánico.</p>
+          <p class="muted">Funciona sin cobertura. Ana, que es previsora, ya la tiene instalada.</p>
           ${installHtml()}
         </div>
-        <h3 class="section">Consejos útiles</h3>
-        <div class="grid2">${T.tips.map(([e, t, d]) => `<div class="card mini"><span class="mini-emoji">${e}</span><strong>${esc(t)}</strong><p>${esc(d)}</p></div>`).join('')}</div>
+        <h3 class="section">Consejos de Ana y Alberto</h3>
+        <div class="tips">${T.tips.map(([who, e, t, d]) => `<div class="card mini tip-${who}"><span class="tip-who">${who === 'ana' ? '💛 Ana' : '🎙️ Alberto'}</span><span class="mini-emoji">${e}</span><strong>${esc(t)}</strong><p>${esc(d)}</p></div>`).join('')}</div>
         <h3 class="section">Presupuesto orientativo</h3>
         <div class="card">
           ${T.prices.map(([e, t, p, d, free]) => `
@@ -185,7 +186,7 @@ const views = {
           <button id="replay" class="btn btn-ghost">🎉 Volver a ver la revelación</button>
           <button id="reset" class="btn btn-ghost">↺ Reiniciar paradas hechas</button>
         </div>
-        <p class="credits">Fotos de la guía original: ${T.credits.map(esc).join(', ')}.</p>`;
+        <p class="credits">${esc(T.credits)}</p>`;
     }
   }
 };
@@ -243,13 +244,13 @@ $('#view').addEventListener('click', (e) => {
     let x;
     do { x = T.excuses[Math.floor(Math.random() * T.excuses.length)]; } while (x === excuseLast && T.excuses.length > 1);
     excuseLast = x;
-    el.innerHTML = `<span class="excuse-who">${x[0] === 'ana' ? '😱 Ana' : '🗣️ Alberto'}</span>«${esc(x[1])}»`;
+    el.innerHTML = `<span class="excuse-who">${x[0] === 'ana' ? '💛 Ana' : '🎙️ Alberto'}</span>«${esc(x[1])}»`;
     el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
     return;
   }
   if (t.id === 'replay') { showReveal(); return; }
   if (t.id === 'reset') {
-    if (confirm('¿Borrar las paradas marcadas? Ana se va a asustar.')) {
+    if (confirm('¿Borrar las paradas marcadas? Ana te pregunta, con cariño, si estás seguro.')) {
       done = new Set(); store.set('done', []); render(); toast('Contador a cero.');
     }
   }
@@ -304,7 +305,11 @@ if ('serviceWorker' in navigator) {
   let reloading = false;
   const check = () => navigator.serviceWorker.getRegistration().then((r) => r && r.update()).catch(() => {});
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (hadControl && !reloading) { reloading = true; location.reload(); }
+    if (hadControl && !reloading) {
+      reloading = true;
+      try { sessionStorage.setItem('updated', '1'); } catch {}
+      location.reload();
+    }
   });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') check(); });
   setInterval(check, 30 * 60 * 1000);
@@ -372,3 +377,9 @@ window.addEventListener('appinstalled', () => { banner.hidden = true; toast('Ins
 render();
 updateNet();
 if (!store.get('revealed', false)) showReveal();
+try {
+  if (sessionStorage.getItem('updated')) {
+    sessionStorage.removeItem('updated');
+    setTimeout(() => toast('✨ App actualizada a la última versión'), 400);
+  }
+} catch {}

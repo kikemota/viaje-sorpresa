@@ -1,57 +1,78 @@
-// Service worker: cachea la "app shell" para que funcione sin conexión.
-const CACHE = 'viajes-v4';
+// Service worker: la app funciona sin conexión y se actualiza sola.
+// Página, código y datos: primero la red (siempre lo último) y, sin conexión, la copia guardada.
+// Fotos, iconos y fuentes: primero la copia guardada.
+// Al publicar una versión nueva, sube CACHE para renovar también las fotos.
+const CACHE = 'viajes-v6';
 const SHELL = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './data.js',
-  './img/llegada.jpg',
-  './img/noche.jpg',
-  './img/tour.jpg',
-  './img/grund.jpg',
-  './img/kirchberg.jpg',
-  './img/schengen.jpg',
-  './img/vianden.jpg',
-  './img/mullerthal.jpg',
-  './img/historia1.jpg',
-  './img/historia2.jpg',
   './manifest.webmanifest',
+  './fuentes/cormorant-garamond.woff2',
+  './fuentes/plus-jakarta-sans.woff2',
   './icons/icon-192.png',
   './icons/icon-512.png',
-  './icons/apple-touch-icon.png'
+  './icons/apple-touch-icon.png',
+  './img/portada.jpg',
+  './img/llegada.jpg',
+  './img/noche.jpg',
+  './img/palacio.jpg',
+  './img/comida.jpg',
+  './img/vianden.jpg',
+  './img/schengen.jpg',
+  './img/mullerthal.jpg',
+  './img/metz.jpg',
+  './img/grund.jpg',
+  './img/kirchberg.jpg',
+  './img/casamatas.jpg',
+  './img/historia.jpg'
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)));
-  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    )
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Navegación: red primero, caché si no hay conexión. Recursos: caché primero.
+const save = (req, res) => {
+  if (res && res.ok && res.type === 'basic') {
+    const copy = res.clone();
+    caches.open(CACHE).then((c) => c.put(req, copy));
+  }
+  return res;
+};
+
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
-  if (new URL(req.url).pathname.endsWith('/sw.js')) return;
+  const url = new URL(req.url);
+  if (url.origin !== location.origin || url.pathname.endsWith('/sw.js')) return;
+
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).catch(() => caches.match('./index.html')));
+    e.respondWith(
+      fetch(req)
+        .then((res) => {
+          // Solo se guarda la app de verdad, no la pantalla de clave.
+          if (res.ok && res.headers.get('cache-control') !== 'no-store') save(new Request('./index.html'), res);
+          return res;
+        })
+        .catch(() => caches.match('./index.html'))
+    );
     return;
   }
-  e.respondWith(
-    caches.match(req).then((hit) => hit || fetch(req).then((res) => {
-      if (res.ok && new URL(req.url).origin === location.origin) {
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put(req, copy));
-      }
-      return res;
-    }))
-  );
+
+  if (/\.(js|css|json|webmanifest)$/.test(url.pathname)) {
+    e.respondWith(fetch(req).then((res) => save(req, res)).catch(() => caches.match(req)));
+    return;
+  }
+
+  e.respondWith(caches.match(req).then((hit) => hit || fetch(req).then((res) => save(req, res))));
 });
