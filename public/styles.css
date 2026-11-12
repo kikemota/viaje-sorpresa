@@ -11,6 +11,8 @@
   --green: #16a34a;
   --quip-bg: #fef9c3;
   --quip-text: #713f12;
+  --ana-bg: #fce7f3;
+  --ana-text: #831843;
   --tabbar-h: 64px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -26,6 +28,8 @@
     --accent-soft: #0c2a40;
     --quip-bg: #3a2f0b;
     --quip-text: #fde68a;
+    --ana-bg: #3b0d26;
+    --ana-text: #fbcfe8;
   }
 }
 
@@ -112,10 +116,11 @@ p { margin: 0; }
 .items.numbered li { border-left: 0; padding-left: 8px; }
 .num { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; }
 
-.quip { margin-top: 12px; padding: 12px; background: var(--quip-bg); color: var(--quip-text); border-radius: 12px; font-size: 14px; position: relative; }
+.quips { display: grid; gap: 8px; margin-top: 12px; }
+.quip { padding: 10px 12px; border-radius: 14px; font-size: 14px; }
 .quip-who { display: block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
-.quip-who::before { content: "😎🤓 "; }
-
+.quip-ana { background: var(--ana-bg); color: var(--ana-text); border-bottom-left-radius: 4px; margin-right: 24px; }
+.quip-alberto { background: var(--quip-bg); color: var(--quip-text); border-bottom-right-radius: 4px; margin-left: 24px; }
 .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 
 /* Botones */
@@ -211,3 +216,4 @@ p { margin: 0; }
 .steps { margin: 12px 0 0; padding-left: 22px; }
 .steps li { margin-bottom: 6px; font-size: 15px; }
 .ok { font-weight: 600; margin-top: 8px; }
+.excuse-who { display: block; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #7dd3fc; margin-bottom: 4px; }

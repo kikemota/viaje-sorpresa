@@ -57,12 +57,12 @@ function pantalla(volver, error) {
   <div class="candado">🔐</div>
   <p class="kicker">Zona restringida por Ana y Alberto</p>
   <h1>¿Cuál es la clave?</h1>
-  <p>Ana y Alberto solo dejan pasar a los viajeros oficiales. Si no la sabes, pregúntales (y prepárate para el interrogatorio).</p>
+  <p>Solo pasan los viajeros oficiales. Si no la sabes, pregúntale a Alberto: te la dirá, y también otras doscientas cosas.</p>
   <form method="post" action="/entrar">
     <input type="hidden" name="volver" value="${escapar(volver)}">
     <input name="clave" type="password" autocomplete="current-password" placeholder="Clave secreta" required autofocus>
     <button type="submit">Entrar</button>
-    ${error ? '<p class="error">Clave incorrecta. Ana y Alberto te están mirando. 👀</p>' : ''}
+    ${error ? '<p class="error">Clave incorrecta. Ana se ha asustado. 😱</p>' : ''}
   </form>
 </main></body></html>`;
   return new Response(html, {

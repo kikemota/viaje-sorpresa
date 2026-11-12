@@ -12,6 +12,7 @@ const allStops = T.days.flatMap((d) => d.stops.map((s) => ({ ...s, dayId: d.id }
 const countable = allStops.filter((s) => s.id !== 'fin');
 let done = new Set(store.get('done', []));
 let selectedDay = null;
+let excuseLast = null;
 
 const mapsUrl = (q) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
 const toMin = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
@@ -48,6 +49,14 @@ function itemsHtml(items, numbered) {
   ).join('') + '</ul>';
 }
 
+function quipsHtml(s) {
+  if (!s.ana && !s.alberto) return '';
+  return `<div class="quips">
+    ${s.ana ? `<div class="quip quip-ana"><span class="quip-who">😱 Ana</span>${esc(s.ana)}</div>` : ''}
+    ${s.alberto ? `<div class="quip quip-alberto"><span class="quip-who">🗣️ Alberto</span>${esc(s.alberto)}</div>` : ''}
+  </div>`;
+}
+
 function stopHtml(s) {
   const isDone = done.has(s.id);
   const time = s.start === s.end ? s.start : `${s.start} – ${s.end}`;
@@ -60,7 +69,7 @@ function stopHtml(s) {
         <h2>${esc(s.title)}</h2>
         ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
         ${itemsHtml(s.items, s.numbered)}
-        ${s.quip ? `<div class="quip"><span class="quip-who">Ana y Alberto</span>${esc(s.quip)}</div>` : ''}
+        ${quipsHtml(s)}
         <div class="actions">
           ${s.map ? `<a class="btn btn-ghost" href="${mapsUrl(s.map)}" target="_blank" rel="noopener">📍 Cómo llegar</a>` : ''}
           ${s.id !== 'fin' ? `<button class="btn ${isDone ? 'btn-done' : ''}" data-done="${s.id}">${isDone ? '✓ Hecho' : 'Marcar como hecho'}</button>` : ''}
@@ -97,7 +106,7 @@ const views = {
         <div class="card progress">
           <div class="progress-top"><strong>${esc(r.name)}</strong><span>${r.n}/${r.total}</span></div>
           <div class="bar"><i style="width:${(r.n / r.total) * 100}%"></i></div>
-          <p>Marca las paradas que vayáis completando. Ana y Alberto revisarán vuestro progreso con lupa.</p>
+          <p>Marca las paradas que vayáis completando. Alberto lo comentará todo; Ana solo quiere que volváis enteros.</p>
         </div>
         <div class="segmented" role="tablist">
           ${T.days.map((d) => `<button role="tab" aria-selected="${d.id === selectedDay}" data-day-tab="${d.id}">${d.label}</button>`).join('')}
@@ -108,7 +117,7 @@ const views = {
   excursiones: {
     title: 'Excursiones',
     html() {
-      return `<p class="lead">Para el domingo. Ana y Alberto votan Schengen, pero «es una democracia» (no lo es).</p>` +
+      return `<p class="lead">Para el domingo. A Ana las tres le dan miedo. Alberto tiene una charla preparada para cada una.</p>` +
         T.excursions.map((e) => `
         <div class="card stop-card">
           <img class="stop-img" src="${e.img}" alt="" loading="lazy">
@@ -116,6 +125,7 @@ const views = {
             <span class="pill">${esc(e.tag)}</span>
             <h2>${esc(e.title)}</h2>
             ${itemsHtml(e.items)}
+            ${quipsHtml(e)}
             <div class="actions"><a class="btn btn-ghost" href="${mapsUrl(e.map)}" target="_blank" rel="noopener">📍 Ver en el mapa</a></div>
           </div>
         </div>`).join('');
@@ -125,7 +135,7 @@ const views = {
     title: 'Descubre',
     html() {
       return `
-        <p class="lead">Para quedar bien en las cenas. O para corregir a Alberto cuando se invente datos.</p>
+        <p class="lead">Para quedar bien en las cenas. O para intentar meter baza cuando Alberto se lance.</p>
         <h3 class="section">Historia</h3>
         ${T.history.map((h) => `
           <div class="card stop-card">
@@ -154,13 +164,13 @@ const views = {
         <div class="card excuse">
           <span class="pill">Generador oficial</span>
           <h2>Excusas de Ana y Alberto</h2>
-          <p id="excuse-text" class="excuse-text">Por si algo sale mal. Que no saldrá. Probablemente.</p>
+          <p id="excuse-text" class="excuse-text">Por si algo sale mal. Ana está segura de que saldrá mal. Alberto te lo explicará igualmente.</p>
           <button id="excuse-btn" class="btn">Dame una excusa</button>
         </div>
         <div class="card" id="install-card">
           <span class="pill">Instalar</span>
           <h2>Llévala en el móvil</h2>
-          <p class="muted">Funciona sin cobertura, ideal para el Grund o el Mullerthal.</p>
+          <p class="muted">Funciona sin cobertura. Ana lo agradece: quedarse sin ella le da pánico.</p>
           ${installHtml()}
         </div>
         <h3 class="section">Consejos útiles</h3>
@@ -219,7 +229,7 @@ $('#view').addEventListener('click', (e) => {
     const after = rank();
     if (done.has(id)) {
       if (after.name !== before) { toast('Nuevo rango: ' + after.name); burst(); }
-      else toast('¡Hecho! Ana y Alberto lo apuntan.');
+      else toast(T.doneToasts[Math.floor(Math.random() * T.doneToasts.length)]);
       if (navigator.vibrate) navigator.vibrate(30);
     }
     return;
@@ -231,14 +241,15 @@ $('#view').addEventListener('click', (e) => {
   if (t.id === 'excuse-btn') {
     const el = $('#excuse-text');
     let x;
-    do { x = T.excuses[Math.floor(Math.random() * T.excuses.length)]; } while (x === el.textContent && T.excuses.length > 1);
-    el.textContent = '«' + x + '»';
+    do { x = T.excuses[Math.floor(Math.random() * T.excuses.length)]; } while (x === excuseLast && T.excuses.length > 1);
+    excuseLast = x;
+    el.innerHTML = `<span class="excuse-who">${x[0] === 'ana' ? '😱 Ana' : '🗣️ Alberto'}</span>«${esc(x[1])}»`;
     el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
     return;
   }
   if (t.id === 'replay') { showReveal(); return; }
   if (t.id === 'reset') {
-    if (confirm('¿Borrar las paradas marcadas? Ana y Alberto fingirán no haberlo visto.')) {
+    if (confirm('¿Borrar las paradas marcadas? Ana se va a asustar.')) {
       done = new Set(); store.set('done', []); render(); toast('Contador a cero.');
     }
   }
@@ -330,7 +341,7 @@ function installSteps() {
   return STEPS[os + '.' + br] || STEPS[os + '.otro'];
 }
 function installHtml() {
-  if (isStandalone) return '<p class="ok">✅ Ya la tienes instalada. Ana y Alberto viven oficialmente en tu móvil.</p>';
+  if (isStandalone) return '<p class="ok">✅ Ya la tienes instalada. Ana y Alberto viven oficialmente en tu móvil (Alberto ya está hablando).</p>';
   return `${deferredPrompt ? '<button class="btn" data-install>Instalar ahora</button>' : ''}
     <ol class="steps">${installSteps().map((t) => `<li>${t}</li>`).join('')}<li>Ábrela siempre desde el <b>icono nuevo</b>.</li></ol>`;
 }

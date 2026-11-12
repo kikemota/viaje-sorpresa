@@ -8,14 +8,14 @@ window.TRIP = {
 
   days: [
     { id: 'vie', day: 5, label: 'Viernes', short: 'Vie', stops: [
-      { id: 'llegada', quip: "Ana y Alberto juran que el bus es gratis. Si alguien os pide billete, la culpa es suya.", start: '17:00', end: '18:30', img: 'img/llegada.jpg',
+      { id: 'llegada', ana: "¿Y si el bus 29 nos deja en otra parada? ¿Y si es gratis porque es una trampa? Llevo apuntado el teléfono del consulado. Por si acaso.", alberto: "Os cuento: el 29 pasa cada 15 minutos, cosa fascinante, porque en los años noventa… (veinte minutos después) …y por eso el transporte es gratis. Ah, que ya hemos llegado.", start: '17:00', end: '18:30', img: 'img/llegada.jpg',
         title: 'Llegada al aeropuerto y traslado al hotel',
         items: [
           ['Bus directo 29 (20-25 min)', 'Autobús gratuito desde la terminal de llegada hasta la parada Gare Centrale. Pasa cada 15 min.'],
           ['Alternativa: Bus 16 + Tranvía T1', 'Bus 16 hasta Pfaffenthal-Kirchberg y conexión directa con el tranvía T1 hasta la estación.'],
           ['Llegada al Hotel Kazawiki', 'A 3-5 minutos a pie de la estación central. Check-in rápido y listos para salir a pasear.']
         ], map: 'Gare Centrale Luxembourg' },
-      { id: 'noche', quip: "Alberto dice «solo una copa». Ana ya ha calculado tres rondas. Haced vuestras apuestas.", start: '18:30', end: '22:00', img: 'img/noche.jpg',
+      { id: 'noche', ana: "La Passerelle está altísima. Yo cruzo por el centro, sin mirar abajo y agarrada del brazo de alguien. De quien sea.", alberto: "En la cena le explicaré al camarero cómo se hace el Judd mat Gardebounen. Lo cocina desde hace treinta años, pero seguro que aprende algo.", start: '18:30', end: '22:00', img: 'img/noche.jpg',
         title: 'Primer contacto nocturno y cena tradicional',
         items: [
           ['Paseo por Avenue de la Liberté', 'Desde el hotel cruzando la Passerelle (viaducto), con vistas iluminadas al valle del Pétrusse.'],
@@ -24,7 +24,7 @@ window.TRIP = {
         ], map: 'Place d\'Armes Luxembourg' }
     ]},
     { id: 'sab', day: 6, label: 'Sábado', short: 'Sáb', stops: [
-      { id: 'tour', quip: "Ana le hará 14 preguntas al guía. Alberto se quedará embobado con el cambio de guardia. Clásico.", start: '10:00', end: '12:30', img: 'img/tour.jpg',
+      { id: 'tour', ana: "En el cambio de guardia llevan armas. Me pongo detrás de Alberto, que no se va a dar cuenta porque estará hablando.", alberto: "El guía habla dos horas y media; yo, tres. Hacemos un tour paralelo, también gratis. El mío con más anécdotas.", start: '10:00', end: '12:30', img: 'img/tour.jpg',
         title: 'Free tour por la Ciudad Alta (Ville Haute)',
         note: 'Salida a las 10:00 h en Place Guillaume II (estatua ecuestre). Duración: 2h30.',
         numbered: true,
@@ -34,21 +34,21 @@ window.TRIP = {
           ['Catedral de Notre-Dame', 'Templo gótico del siglo XVII con la cripta ducal y la Virgen Consoladora.'],
           ['Chemin de la Corniche', '«El balcón más hermoso de Europa», con panorámicas del Grund.']
         ], map: 'Place Guillaume II Luxembourg' },
-      { id: 'comida', quip: "Según Alberto, el chocolate a la taza «no cuenta como merienda». Ana ya ha pedido dos cucharas.", start: '12:30', end: '14:30',
+      { id: 'comida', ana: "¿Chocolate hirviendo en una cuchara? Lo soplaré veintidós veces. Y luego otras diez, por si acaso.", alberto: "Pediré los Gromperekichelcher con perfecto acento luxemburgués. Me contestarán en español, pero el gesto es lo que cuenta.", start: '12:30', end: '14:30',
         title: 'Pausa gastronómica: chocolate y bistrós',
         items: [
           ['Chocolate House Nathaly', 'Frente al Palacio Ducal. Elige tu cuchara de chocolate artesanal para disolver en leche caliente.'],
           ['Kniddelen', 'Bolas de masa hervida con crema y bacon crujiente, en los bistrós locales.'],
           ['Gromperekichelcher', 'Tortitas de patata rallada con cebolla y perejil, servidas con compota de manzana.']
         ], map: 'Chocolate House Luxembourg' },
-      { id: 'grund', quip: "¿Quejas por las cuestas? Oficina de reclamaciones de Ana y Alberto. Horario de atención: nunca.", start: '15:00', end: '18:00', img: 'img/grund.jpg',
+      { id: 'grund', ana: "¿Un ascensor que atraviesa la montaña? ¿Y si se queda atascado dentro de la roca? Bajo andando. Aunque las escaleras también me dan un poco de miedo.", alberto: "La abadía tiene cuatro siglos de historia y pienso contarlos todos, en orden. Traed bocadillo.", start: '15:00', end: '18:00', img: 'img/grund.jpg',
         title: 'El barrio del Grund (Ciudad Baja)',
         items: [
           ['Ascensor del Plateau St. Esprit', 'Bajada directa y gratuita en ascensor a través de la roca hasta el valle.'],
           ['Abadía de Neumünster (Neimënster)', 'Antiguo monasterio benedictino del siglo XVII, hoy espacio cultural junto al río.'],
           ['Puente del siglo XV y orillas del Alzette', 'Ruta fotográfica entre casitas integradas en la roca defensiva.']
         ], map: 'Neimënster Luxembourg' },
-      { id: 'kirchberg', quip: "71 metros y suelo de cristal. Ana y Alberto se ofrecen voluntarios… para hacer la foto desde abajo.", start: '18:00', end: '20:00', img: 'img/kirchberg.jpg',
+      { id: 'kirchberg', ana: "71 metros. Suelo de cristal. No, no y no. Os espero abajo con el móvil para haceros la foto. Bien lejos.", alberto: "La Philharmonie tiene 823 columnas y ninguna me ha interrumpido. Por fin un público a mi altura.", start: '18:00', end: '20:00', img: 'img/kirchberg.jpg',
         title: 'Ascensor de Pfaffenthal y Kirchberg',
         items: [
           ['Ascensor panorámico de Pfaffenthal', 'Cabina de cristal a 71 m sobre el valle, con pasarela de suelo de vidrio.'],
@@ -57,7 +57,7 @@ window.TRIP = {
         ], map: 'Pfaffenthal Lift Luxembourg' }
     ]},
     { id: 'dom', day: 0, label: 'Domingo', short: 'Dom', stops: [
-      { id: 'schengen', quip: "Tres países en un punto. Alberto intentará pisar los tres a la vez y Ana lo grabará para la posteridad.", start: '09:30', end: '14:00', img: 'img/schengen.jpg', approx: true,
+      { id: 'schengen', ana: "¿Tres países a la vez? ¿Y si me quedo sin cobertura en los tres? Tened el pasaporte a mano, que me da tranquilidad.", alberto: "Explicaré el Acuerdo de Schengen artículo por artículo, en francés, alemán y luxemburgués. No hablo ninguno, pero eso nunca me ha frenado.", start: '09:30', end: '14:00', img: 'img/schengen.jpg', approx: true,
         title: 'Excursión a Schengen y viñedos del Mosela',
         note: 'Opción principal · 35 min de trayecto. Alternativas en la pestaña Excursiones.',
         items: [
@@ -65,28 +65,28 @@ window.TRIP = {
           ['Trifinio internacional', 'Donde se juntan Luxemburgo, Francia y Alemania, a orillas del Mosela.'],
           ['Cata de vinos blancos', 'Riesling, Pinot Gris y Auxerrois. Ideal como aperitivo.']
         ], map: 'Schengen Luxembourg' },
-      { id: 'fin', quip: "Ana y Alberto aceptan aplausos, abrazos y reseñas de cinco estrellas. Las quejas, por escrito y en luxemburgués.", start: '15:35', end: '15:35',
+      { id: 'fin', ana: "¡Lo hemos conseguido y estamos todos enteros! Ahora solo queda el vuelo de vuelta… ay, madre.", alberto: "Discurso de despedida. Duración estimada: el vuelo entero. Llevad auriculares.", start: '15:35', end: '15:35',
         title: 'Fin del viaje',
         items: [['Hasta la próxima', 'Termina la escapada a Luxemburgo.']] }
     ]}
   ],
 
   excursions: [
-    { id: 'schengen', img: 'img/schengen.jpg', tag: 'Opción principal · 35 min',
+    { id: 'schengen', ana: "¿Tres países a la vez? ¿Y si me quedo sin cobertura en los tres? Tened el pasaporte a mano, que me da tranquilidad.", alberto: "Explicaré el Acuerdo de Schengen artículo por artículo, en francés, alemán y luxemburgués. No hablo ninguno, pero eso nunca me ha frenado.", img: 'img/schengen.jpg', tag: 'Opción principal · 35 min',
       title: 'Schengen: cuna de Europa y viñedos del Mosela',
       items: [
         ['Monumento del Acuerdo de Schengen', 'Plaza y museo dedicados al tratado de 1985 que eliminó los controles fronterizos europeos.'],
         ['Trifinio internacional', 'Punto donde convergen Luxemburgo, Francia y Alemania a lo largo del Mosela.'],
         ['Cata de vinos blancos', 'Riesling, Pinot Gris y Auxerrois. Ideal para un aperitivo mañanero.']
       ], map: 'Schengen Luxembourg' },
-    { id: 'vianden', img: 'img/vianden.jpg', tag: 'Alternativa I · ~50 min',
+    { id: 'vianden', ana: "¿Un castillo con mazmorras y además un telesilla? Las dos cosas el mismo día no, por favor.", alberto: "Tengo preparada una charla sobre los siglos XI al XIV. Un siglo por cada curva de la carretera.", img: 'img/vianden.jpg', tag: 'Alternativa I · ~50 min',
       title: 'Castillo de Vianden',
       items: [
         ['Fortaleza románica y gótica', 'Siglos XI a XIV, sobre un castrum romano. Uno de los castillos feudales más bellos de Europa.'],
         ['Telesilla panorámico', 'El único del Gran Ducado: sube desde el río Our hasta la colina con vistas al castillo.'],
         ['Cómo llegar', 'Tren hasta Ettelbruck y bus directo, unos 50 min. Gratis con el transporte nacional.']
       ], map: 'Vianden Castle' },
-    { id: 'mullerthal', img: 'img/mullerthal.jpg', tag: 'Alternativa II',
+    { id: 'mullerthal', ana: "¿Una cueva y un bosque frondoso? Ahí viven cosas. Voy con linterna, silbato y el móvil al cien por cien.", alberto: "En Echternach hay una procesión danzante. Yo no bailo, pero la narro en directo.", img: 'img/mullerthal.jpg', tag: 'Alternativa II',
       title: 'Mullerthal (Pequeña Suiza) y Echternach',
       items: [
         ['Cascada de Schiessentumpel', 'Cascada de tres chorros con un puente de piedra en mitad del bosque.'],
@@ -142,24 +142,32 @@ window.TRIP = {
   ],
 
   excuses: [
-    'Eso no estaba en el PowerPoint.',
-    'Lo pone en la diapositiva 17. (La diapositiva 17 está en blanco.)',
-    'Era domingo. Lo avisamos en «Consejos útiles», que nadie leyó.',
-    'La cuesta no salía en Google Maps.',
-    'Ha sido cosa de la sirena Melusina.',
-    'Las calles las diseñó Vauban, no nosotros.',
-    'Con el PIB per cápita que tienen, seguro que es normal.',
-    'Formaba parte de la sorpresa.',
-    'El transporte es gratis. Las quejas, también.',
-    'Lo hemos hecho por el bien del grupo.',
-    'En luxemburgués eso significa «todo va según el plan».',
-    'Mir wëlle bleiwe wat mir sinn: seguimos siendo los mismos de siempre.'
+    ['ana', 'No fui porque daba miedo.'],
+    ['ana', 'Me pareció ver a la sirena Melusina en el Alzette.'],
+    ['ana', 'El ascensor hacía un ruido rarísimo.'],
+    ['ana', 'Me quedé vigilando las mochilas. Alguien tenía que hacerlo.'],
+    ['ana', 'Estaba demasiado alto. O demasiado oscuro. O las dos cosas.'],
+    ['ana', 'Lo vi en una foto y con eso me vale.'],
+    ['alberto', 'Me entretuve explicándole la historia de Luxemburgo a un luxemburgués.'],
+    ['alberto', 'No llegamos tarde: llegamos con más contexto histórico.'],
+    ['alberto', 'Solo iba a decir una cosa. Al final eran 47.'],
+    ['alberto', 'El guía me pidió que siguiera yo.'],
+    ['alberto', 'Eso no estaba en el PowerPoint.'],
+    ['alberto', 'Lo pone en la diapositiva 17. (La diapositiva 17 está en blanco.)']
+  ],
+
+  doneToasts: [
+    'Alberto ya lo está contando en el grupo de WhatsApp.',
+    'Ana respira aliviada: nadie se ha caído.',
+    'Alberto quiere añadir un par de datos. Corred.',
+    'Ana lo ha visto desde una distancia prudencial. Cuenta igual.',
+    '¡Hecho! Alberto prepara un resumen de solo 40 minutos.'
   ],
 
   ranks: [
     [0, 'Turista recién aterrizado'],
-    [2, 'Explorador con agujetas'],
-    [4, 'Experto en Kniddelen'],
+    [2, 'Más valiente que Ana (no es difícil)'],
+    [4, 'Superviviente de una charla de Alberto'],
     [6, 'Gran Duque honorario'],
     [7, 'Aprobado por Ana y Alberto 🏅']
   ],

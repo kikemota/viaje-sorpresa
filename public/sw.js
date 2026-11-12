@@ -1,5 +1,5 @@
 // Service worker: cachea la "app shell" para que funcione sin conexión.
-const CACHE = 'viajes-v3';
+const CACHE = 'viajes-v4';
 const SHELL = [
   './',
   './index.html',
