@@ -8,6 +8,16 @@ Es una PWA sin dependencias ni compilación: se instala en el móvil desde el na
 - `public/data.js`: todo el contenido (itinerario, excursiones, historia, curiosidades, consejos, precios, excusas de Ana y Alberto).
 - `public/sw.js`: service worker para funcionar sin conexión.
 
+## Clave de acceso
+
+`netlify/edge-functions/clave.js` pide una clave antes de mostrar la app. La clave no está en el código: se guarda en Netlify.
+
+- Ponerla o cambiarla: Netlify → Site configuration → Environment variables → `CLAVE_ACCESO`. Después, Deploys → Trigger deploy.
+- No distingue mayúsculas ni espacios al principio o al final.
+- Quien acierta no tiene que repetirla durante 90 días. Al cambiar la clave, todos tienen que volver a ponerla.
+- En iPhone, la app instalada guarda sus datos aparte de Safari, así que pide la clave una vez más al abrirla desde el icono.
+- Si `CLAVE_ACCESO` no existe, la app queda abierta.
+
 ## Publicar una versión nueva
 
 1. Cambia el contenido en `public/data.js` (o lo que toque).
